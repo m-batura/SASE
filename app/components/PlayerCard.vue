@@ -1,6 +1,8 @@
 <script lang="ts" setup>
+import type { PlayerModel } from '~/models/player.model';
+
 export interface PlayerCardProps {
-    player: any
+    player: PlayerModel
 }
 const { player } = defineProps<PlayerCardProps>()
 </script>
@@ -25,7 +27,11 @@ const { player } = defineProps<PlayerCardProps>()
 </template>
 
 
-<style>
+<style scoped>
+.card {
+    width: 200px;
+}
+
 .icon-left {
     border-top-left-radius: var(--bs-card-inner-border-radius);
 }

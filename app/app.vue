@@ -36,7 +36,7 @@ const year = new Date().getFullYear()
     <!-- <NuxtRouteAnnouncer />
     <NuxtWelcome /> -->
     <NuxtPage class="mb-3"/>
-    <footer class="text-center">
+    <footer class="my-3 text-center">
       &copy; {{ year }} Singidunum university
     </footer>
   </div>
