@@ -23,6 +23,12 @@ export default defineNuxtConfig({
           crossorigin: 'anonymous'
         }
       ],
+      meta: [
+        {
+            name: 'description',
+            content: 'Browse and find players'
+        }
+      ],
       htmlAttrs: {
         lang: 'en'
       },

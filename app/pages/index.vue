@@ -28,19 +28,32 @@ function loadNext() {
     if (!data.value?.last) pageNumber.value++
     console.log(1, pageNumber.value)
 }
+
+useHead({
+    title: 'Home :: PlayerBrowser',
+})
 </script>
 
 <template>
-    <div class="mx-auto d-flex gap-1 mb-3">
-        <button type="button" class="btn btn-secondary" @click="loadFirst">First</button>
-        <button type="button" class="btn btn-primary" @click="loadPrev">Prev</button>
-        <span>{{ pageNumber + 1 || '1' }}</span>
-        <button type="button" class="btn btn-primary" @click="loadNext">Next</button>
-        <button type="button" class="btn btn-secondary" @click="loadLast">Last</button>
-    </div>
-
-    <div v-if="pending">Data is loading...</div>
-    <div v-else-if="error">Somtehing went wrong: {{ error }}</div>
+    <nav aria-label="...">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <button type="button" class="page-link" @click="loadFirst">First</button>
+            </li>
+            <li class="page-item"><button type="button" class="page-link" @click="loadPrev">Prev</button></li>
+            <li class="page-item active" aria-current="page">
+                <span class="page-link">{{ pageNumber + 1 }} {{ data ? `/ ${data.totalPages}` : '' }}</span>
+            </li>
+            <li class="page-item">
+                <button type="button" class="page-link" @click="loadNext">Next</button>
+            </li>
+            <li class="page-item">
+                <button type="button" class="page-link" @click="loadLast">Last</button>
+            </li>
+        </ul>
+    </nav>
+    <LoadingCard v-if="pending"/>
+    <ErrorCard v-else-if="error">{{ error }}</ErrorCard>
     <div class="player-wrapper" v-else>
         <PlayerCard v-for="player in data?.content" :player="player" />
     </div>
@@ -52,5 +65,11 @@ function loadNext() {
     flex-wrap: wrap;
     gap: 5px;
     justify-content: center;
+}
+
+.info-card {
+    max-width: 450px;
+    margin-right: auto;
+    margin-left: auto;
 }
 </style>
