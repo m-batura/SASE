@@ -1,5 +1,13 @@
 <script lang="ts" setup>
 const year = new Date().getFullYear()
+
+const { loggedIn, user, clear, fetch } = useUserSession()
+//AUTH block
+async function logout() {
+  await $fetch('/api/auth/logout', { method: 'post' })
+  await clear()
+  await fetch()
+}
 </script>
 
 <template>
@@ -24,18 +32,37 @@ const year = new Date().getFullYear()
               <i class="fa-solid fa-circle-info"></i> About
             </RouterLink>
           </li>
+
+          <template v-if="loggedIn">
+            <li class="nav-item">
+              <RouterLink class="nav-link" to="/account" active-class="active">
+                <i class="fa-solid fa-circle-user"></i> Account
+              </RouterLink>
+            </li>
+            <li class="nav-item">
+              <Button class="nav-link"  type="button" @click="logout">
+                <i class="fa-solid fa-door-open"></i> Logout
+              </Button>
+            </li>
+          </template>
+          <template v-else>
+            <li class="nav-item">
+              <a class="nav-link" href="/api/auth/discord">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Log in
+              </a>
+            </li>
+          </template>
         </ul>
-        <!-- <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form> -->
+        <div class="navbar-text" v-if="loggedIn">
+          <i class="fa-solid fa-user"></i> {{ (user as any).username }}({{ (user as any).id }})
+        </div>
       </div>
     </div>
   </nav>
   <div class="container">
     <!-- <NuxtRouteAnnouncer />
     <NuxtWelcome /> -->
-    <NuxtPage class="mb-3"/>
+    <NuxtPage />
     <footer class="my-3 text-center">
       &copy; {{ year }} Singidunum university
     </footer>

@@ -1,14 +1,13 @@
 <script lang="ts" setup>
 import type { PageModel } from '~/models/page.model';
 import type { PlayerModel } from '~/models/player.model';
+import { PlayerService } from '~/player.service';
 
 const pageNumber = ref<number>(0)
-const url = computed(() => `https://cache.samifying.com/api/data?page=${pageNumber.value}&size=30&sort=id,desc`)
-const { data, pending, error } = useFetch<PageModel<PlayerModel>>(url,
-    {
-        watch: [pageNumber]
-    }
-)
+
+const { data, pending, error } = PlayerService.getPlayerByPage(pageNumber, {
+    watch:[pageNumber]
+})
 
 function loadFirst() {
     pageNumber.value = 0

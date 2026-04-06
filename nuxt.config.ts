@@ -2,6 +2,19 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+
+  modules: ['nuxt-auth-utils'],
+  runtimeConfig: {
+    discordClientSecret: process.env.DISCORD_CLIENT_SECRET,
+    session: {
+      password: process.env.NUXT_SESSION_PASSWPRD || '',
+    },
+    public: {
+      discordClientId: process.env.DISCORD_CLIENT_ID,
+      discordRedirectUrl: process.env.DISCORD_REDIRECT_URL,
+    },
+  },
+
   app: {
     head: {
       link: [
@@ -25,8 +38,8 @@ export default defineNuxtConfig({
       ],
       meta: [
         {
-            name: 'description',
-            content: 'Browse and find players'
+          name: 'description',
+          content: 'Browse and find players'
         }
       ],
       htmlAttrs: {
@@ -35,6 +48,15 @@ export default defineNuxtConfig({
       bodyAttrs: {
         'data-bs-theme': 'dark'
       }
+    }
+  },
+
+  vite: {
+    optimizeDeps: {
+      include: [
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
+      ]
     }
   }
 })
