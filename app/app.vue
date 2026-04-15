@@ -1,20 +1,20 @@
 <script lang="ts" setup>
-const year = new Date().getFullYear()
-
 const { loggedIn, user, clear, fetch } = useUserSession()
-//AUTH block
+
 async function logout() {
   await $fetch('/api/auth/logout', { method: 'post' })
   await clear()
   await fetch()
 }
+
+const year = new Date().getFullYear()
 </script>
 
 <template>
   <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3">
     <div class="container">
       <RouterLink class="navbar-brand" to="/">
-        <i class="fa-solid fa-dice-d6"></i> PlayerBrowser
+        <i class="fa-solid fa-gamepad"></i> iSocial
       </RouterLink>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,6 @@ async function logout() {
               <i class="fa-solid fa-circle-info"></i> About
             </RouterLink>
           </li>
-
           <template v-if="loggedIn">
             <li class="nav-item">
               <RouterLink class="nav-link" to="/account" active-class="active">
@@ -40,31 +39,29 @@ async function logout() {
               </RouterLink>
             </li>
             <li class="nav-item">
-              <Button class="nav-link"  type="button" @click="logout">
+              <button class="nav-link" type="button" @click="logout">
                 <i class="fa-solid fa-door-open"></i> Logout
-              </Button>
+              </button>
             </li>
           </template>
           <template v-else>
             <li class="nav-item">
               <a class="nav-link" href="/api/auth/discord">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i> Log in
+                <i class="fa-solid fa-arrow-right-to-bracket"></i> Login
               </a>
             </li>
           </template>
         </ul>
         <div class="navbar-text" v-if="loggedIn">
-          <i class="fa-solid fa-user"></i> {{ (user as any).username }}({{ (user as any).id }})
+          <i class="fa-solid fa-user"></i> {{ (user as any).username }} ({{ (user as any).id }})
         </div>
       </div>
     </div>
   </nav>
   <div class="container">
-    <!-- <NuxtRouteAnnouncer />
-    <NuxtWelcome /> -->
     <NuxtPage />
     <footer class="my-3 text-center">
-      &copy; {{ year }} Singidunum university
+      &copy; {{ year }} Singidunum University
     </footer>
   </div>
 </template>

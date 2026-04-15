@@ -1,8 +1,8 @@
 <template>
-    <div class="card boder-damger info-card">
+    <div class="card border-danger info-card">
         <div class="card-body text-danger text-center">
-            <h3>Oops...</h3>
-            <p><slot></slot></p>
+            <h3>Oops, something went wrong</h3>
+            <slot></slot>
         </div>
     </div>
 </template>

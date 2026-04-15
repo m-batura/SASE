@@ -1,11 +1,13 @@
 <script lang='ts' setup>
 import { PlayerService } from '~/services/player.service'
+import type { Friend } from '~~/server/db/entities/Friend'
 
 const { loggedIn, user } = useUserSession() as {
     loggedIn: Ref<boolean>
     user: Ref<any>
 }
 const { data: player } = PlayerService.getPlayerByDiscordId((user.value as any).id)
+const {data: friends} = useFetch<Friend>('/api/friend/list')
 const router = useRouter()
 
 useHead({
@@ -125,40 +127,12 @@ watch(loggedIn, () => {
 
                     </div>
                 </div>
-
+                <div class='card shadow-sm'>
+                    <div class="card-body">
+                        <pre>{{ friends }}</pre>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
-
-<!-- <script lang="ts" setup>
-import { PlayerService } from '~/player.service'
-
-const { loggedIn, user, clear, fetch } = useUserSession()
-const { data: player } = PlayerService.getPlayerByDiscordId((user.value as any).id)
-const router = useRouter()
-
-useHead({
-    title: 'Account :: PlayerBrowser',
-})
-
-onMounted(() => {
-    if (!loggedIn.value) {
-        router.push('/')
-        return
-    }
-})
-
-watch(loggedIn, () => {
-    if (!loggedIn.value) {
-        router.push('/')
-        return
-    }
-})
-</script>
-
-<template>
-    <pre>{{ user }}</pre>
-    <hr>
-    <pre>{{ player ?? 'No player found' }}</pre>
-</template> -->

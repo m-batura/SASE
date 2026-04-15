@@ -1,7 +1,6 @@
-
+// URL: /api/auth/discord
 
 export default defineEventHandler(async (event) => {
-    
     const config = useRuntimeConfig(event)
     const state = crypto.randomUUID()
 
@@ -10,7 +9,7 @@ export default defineEventHandler(async (event) => {
         sameSite: 'lax',
         secure: true,
         path: '/',
-        maxAge: 10 * 60,
+        maxAge: 10 * 60
     })
 
     const params = new URLSearchParams({
@@ -19,7 +18,7 @@ export default defineEventHandler(async (event) => {
         response_type: 'code',
         scope: 'identify email',
         state,
-        promt: 'consent',
+        prompt: 'consent'
     })
 
     return sendRedirect(event, `https://discord.com/oauth2/authorize?${params.toString()}`)

@@ -1,6 +1,6 @@
-<script lang="ts">
+<script lang="ts" setup>
 useHead({
-    title: 'About :: PlayerBrowser',
+    title: 'About :: iSocial'
 })
 </script>
 

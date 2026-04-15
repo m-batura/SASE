@@ -2,19 +2,17 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-
   modules: ['nuxt-auth-utils'],
   runtimeConfig: {
     discordClientSecret: process.env.DISCORD_CLIENT_SECRET,
     session: {
-      password: process.env.NUXT_SESSION_PASSWPRD || '',
+      password: process.env.NUXT_SESSION_PASSWORD || ''
     },
     public: {
       discordClientId: process.env.DISCORD_CLIENT_ID,
-      discordRedirectUrl: process.env.DISCORD_REDIRECT_URL,
-    },
+      discordRedirectUrl: process.env.DISCORD_REDIRECT_URL
+    }
   },
-
   app: {
     head: {
       link: [
@@ -48,15 +46,27 @@ export default defineNuxtConfig({
       bodyAttrs: {
         'data-bs-theme': 'dark'
       }
-    }
+    },
   },
-
   vite: {
     optimizeDeps: {
       include: [
         '@vue/devtools-core',
         '@vue/devtools-kit',
       ]
+    }
+  },
+  nitro: {
+    esbuild: {
+      options: {
+        tsconfigRaw: {
+          compilerOptions: {
+            experimentalDecorators: true,
+            //@ts-ignore
+            emitDecoratorMetadata: true
+          }
+        }
+      }
     }
   }
 })
