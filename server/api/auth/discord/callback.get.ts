@@ -1,3 +1,5 @@
+import { AppDataSource } from "~~/server/db/data-source"
+
 export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig(event)
     const query = getQuery(event)

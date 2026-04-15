@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { PlayerService } from '~/player.service';
+import { PlayerService } from '~/services/player.service';
 
 const route = useRoute()
 

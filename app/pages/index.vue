@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-import type { PageModel } from '~/models/page.model';
-import type { PlayerModel } from '~/models/player.model';
-import { PlayerService } from '~/player.service';
+import { PlayerService } from '~/services/player.service';
 
 const pageNumber = ref<number>(0)
 

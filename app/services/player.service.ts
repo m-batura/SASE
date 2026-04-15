@@ -1,5 +1,5 @@
 import type { PlayerModel } from '~/models/player.model'
-import type { PageModel } from './models/page.model'
+import type { PageModel } from '../models/page.model'
 import type { UseFetchOptions } from '#app'
 
 const API_BASE = 'https://cache.samifying.com/api'
@@ -12,5 +12,9 @@ export class PlayerService {
 
     static getPlayerById(id: any) {
         return useFetch<PlayerModel>(`${API_BASE}/data/${id}`)
+    }
+
+    static getPlayerByDiscordId(discordId: any) {
+        return useFetch<PlayerModel>(`${API_BASE}/data/discord/${discordId}`)
     }
 }
