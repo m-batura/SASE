@@ -2,7 +2,9 @@
 import { PlayerService } from '~/services/player.service';
 
 const route = useRoute()
+const {loggedIn} = useUserSession()
 const { data, pending, error } = PlayerService.getPlayerById(route.params.id)
+const {data: friends} = useFetch<any[]>('/api/friend/list?simple=1')
 
 const pageTitle = computed(() => `${data.value ? data.value.name : 'Player'} :: iSocial`)
 
@@ -45,8 +47,14 @@ useHead({
                         </span>
                     </li>
                 </ul>
-                <div class="card-footer">
-                    <a :href="`/api/friend/${data?.id}`" class="btn btn-success">Add Friend</a>
+                <div class="card-footer" v-if="loggedIn">
+                    <a :href="`/api/friend/remove/${data?.id}`" class="btn btn-danger"
+                        v-if="friends?.map(f=>f.playerId).find(id=>id==data?.id)">
+                        Remove Friend
+                    </a>
+                    <a :href="`/api/friend/add/${data?.id}`" class="btn btn-success" v-else>
+                        Add Friend
+                    </a>
                 </div>
             </div>
         </div>

@@ -1,3 +1,4 @@
+import { IsNull } from "typeorm"
 import { AppDataSource } from "~~/server/db/data-source"
 import { Friend } from "~~/server/db/entities/Friend"
 import { User } from "~~/server/db/entities/User"
@@ -17,11 +18,16 @@ export default defineEventHandler(async (event) => {
         return 'User not found'
     }
 
-    await friendRepo.save({
-        userId: userEntity.userId,
+    const existing = await friendRepo.findOneBy({
         playerId: Number(id),
-        createdAt: new Date()
+        userId: userEntity.userId,
+        deletedAt: IsNull()
     })
+
+    if (existing != null) {
+        existing.deletedAt = new Date()
+        await friendRepo.save(existing)
+    }
 
     return sendRedirect(event, '/account')
 })

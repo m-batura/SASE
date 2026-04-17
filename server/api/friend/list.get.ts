@@ -4,13 +4,14 @@ import { Friend } from "~~/server/db/entities/Friend"
 
 export default defineEventHandler(async (event) => {
     const { user } = await getUserSession(event)
+    const query = getQuery(event)
     const friendRepo = AppDataSource.getRepository(Friend)
 
-    return await friendRepo.find({
+    const data = await friendRepo.find({
         select: {
             friendId: true,
             playerId: true,
-            createdAt:true
+            createdAt: true
         },
         where: {
             user: {
@@ -19,4 +20,12 @@ export default defineEventHandler(async (event) => {
             deletedAt: IsNull()
         }
     })
+    if (query.simple != '1') {
+        for (let obj of (data as any)) {
+            obj.player = await $fetch<any>('https:cache.samifying.com/api/data/' + obj.playerId)
+        }
+    }
+        
+
+    return data
 })
