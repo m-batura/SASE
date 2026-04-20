@@ -1,75 +1,17 @@
-# Nuxt Minimal Starter
+# iSocial - Nuxt 4 Application
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+`.env` example:
+```
+DISCORD_CLIENT_ID=<DEVELOPER_PORATAL_APP_IP>
+DISCORD_CLIENT_SECRET=<DEVELOPER_PORATAL_APP_SECERET>
+DISCORD_REDIRECT_URL=https://localhost:3000/api/auth/discord/callback
+NUXT_SESSION_PASSWORD=<RANDOM_STRING>
 
-## Setup
-
-Make sure to install dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+DB_HOST=192.168.55.65
+DB_PORT=3309
+DB_USER=student
+DB_PASS=student
+DB_NAME=sde_sase_2026
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+> To create an app for the OAuth2 go to [Discord Developer App](https://discord.com/developers/applications/)

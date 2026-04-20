@@ -1,4 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
+import fs from 'fs'
+import path from 'path'
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
@@ -48,12 +52,21 @@ export default defineNuxtConfig({
       }
     },
   },
+  devServer: {
+    https: true
+  },
   vite: {
     optimizeDeps: {
       include: [
         '@vue/devtools-core',
         '@vue/devtools-kit',
       ]
+    },
+    server: {
+      https: {
+        key: fs.readFileSync(path.resolve('./certs/localhost+2-key.pem')),
+        cert: fs.readFileSync(path.resolve('./certs/localhost+2.pem'))
+      }
     }
   },
   nitro: {

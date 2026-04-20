@@ -53,7 +53,7 @@ const year = new Date().getFullYear()
           </template>
         </ul>
         <div class="navbar-text" v-if="loggedIn">
-          <i class="fa-solid fa-user"></i> {{ (user as any).username }} ({{ (user as any).id }})
+          <i class="fa-solid fa-user"></i>{{ (user as any).globalName || (user as any).username }}
         </div>
       </div>
     </div>
